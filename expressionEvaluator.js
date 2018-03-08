@@ -7,26 +7,23 @@ Evaluator.prototype.evaluate = function(userString) {
 }
 
 var condense = function(arr) {
+  var firstElement = arr[0];
 
-  var operator = arr[0];
-  var firstInt = arr[1];
+  if(firstElement != '+' && firstElement != '-') {
+    return firstElement;
+  }else {
+    var operator = firstElement;
+    var firstInt = arr[1];
 
-  var partialApplication = math('+', 1);
-
-  return partialApplication(2);
-
-  // if(firstChar === '+') {
-  //   return parseInt(charArr[1]) + evalString.slice(1, (evalString.length));
-  // }else if (firstChar === '-') {
-  //   // return evalString[1] - evalString[2]
-  // }else {
-  //   return parseInt(firstChar);
-  // }
+    var partialApplication = math(operator, firstInt);
+    return partialApplication(condense(arr.slice(2, (arr.length))));
+  }
 }
 
 var math = function(operator, num1) {
   return function(num2) {
     if(operator === '+') {
+      // console.log(num1, " ", num2)
       return num1 + num2;
     }else {
       return num1 - num2;
