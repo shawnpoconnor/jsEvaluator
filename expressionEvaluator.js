@@ -1,12 +1,6 @@
-var curry = require('lodash/curry');
+var R = require('ramda');
 
 function Evaluator() {
-}
-
-Evaluator.prototype.evaluate = (userString) => {
-  const parsedArr = parseUserString(userString);
-
-  return condense(parsedArr);
 }
 
 const condense = (arr) => {
@@ -23,7 +17,7 @@ const condense = (arr) => {
   }
 }
 
-const math = curry(function(operator, num1, num2) {
+const math = R.curry(function(operator, num1, num2) {
     if(operator === '+') {
       return num1 + num2;
     }else {
@@ -43,5 +37,7 @@ const parseUserString = (userString) => {
     });
     return parsedArr;
 }
+
+Evaluator.prototype.evaluate = R.compose(condense, parseUserString);
 
 module.exports = Evaluator;
