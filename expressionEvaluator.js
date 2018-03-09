@@ -9,15 +9,14 @@ const condense = (arr) => {
   if(firstElement != '+' && firstElement != '-') {
     return firstElement;
   }else {
-    const operator = firstElement;
-    const firstInt = arr[1];
+    const operator = firstElement
+    const firstInt = arr[1]
 
-    const partialApplication = math(operator, firstInt);
-    return partialApplication(condense(arr.slice(2, (arr.length))));
+    return math(operator, firstInt, condense(arr.slice(2, (arr.length))));
   }
 }
 
-const math = R.curry(function(operator, num1, num2) {
+const math = R.curry((operator, num1, num2) => {
     if(operator === '+') {
       return num1 + num2;
     }else {
@@ -25,18 +24,15 @@ const math = R.curry(function(operator, num1, num2) {
   }
 });
 
-const parseUserString = (userString) => {
-  const parsedArr = userString.split(" ")
-    .map(x =>
-      {
-      if(x === '+' || x === '-') {
-          return x;
-        }else {
-          return parseInt(x);
-        }
-    });
-    return parsedArr;
+const ConvertIntCharsToInt = (char) => {
+  if(char === '+' || char === '-') {
+    return char;
+  }else {
+    return parseInt(char);
+  }
 }
+
+const parseUserString = R.compose(R.map(ConvertIntCharsToInt), R.split(" "));
 
 Evaluator.prototype.evaluate = R.compose(condense, parseUserString);
 
