@@ -34,9 +34,7 @@ describe("Test the expressionEvaluator function", function() {
   });
 
   it("should be able to deal with both multiple of addition and subtraction in the same string", function() {
-    expect(evaluator.evaluate("- 6 + 1 + 2 - 3 1")).toEqual(1);
+    expect(evaluator.evaluate("- 6 + 2 - 4 + 2 - 3 1")).toEqual(4);
   });
-
-
 
 });
