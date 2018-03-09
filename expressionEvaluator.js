@@ -16,13 +16,13 @@ const condense = (arr) => {
   }
 }
 
-const math = (operator, num1, num2) => {
+const math = R.curry((operator, num1, num2) => {
     if(operator === '+') {
       return num1 + num2;
     }else {
       return num1 - num2;
   }
-};
+});
 
 const ConvertIntCharsToInt = (char) => {
   if(char === '+' || char === '-') {
